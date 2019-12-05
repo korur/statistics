@@ -1,0 +1,18 @@
+---
+title: "Statistical concepts in explained in simple terms"
+author: "Serdar Korur"
+date: "11/28/2019"
+output: html_document
+---
+
+If you are a beginner or someone who wants to refresh his/her memory on simple sattistical concepts this article is for you.
+
+
+# Median
+
+# IQR
+
+# Mean 
+
+# Central limit theorem
+

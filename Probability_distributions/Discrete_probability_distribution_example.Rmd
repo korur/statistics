@@ -1,0 +1,250 @@
+---
+title: "Binomial_distributions"
+author: "Serdar Korur"
+date: "10/27/2019"
+output: html_document
+---
+
+**Animated view of significant binomial probability distributions**
+
+**Confidence interval graph 110-70**
+
+Horror Movie release dates in each day of the month can be used as a good example to practice probability distribituions. The data comes from the IMDb. 
+
+I will find out the distribution of Horror movie releases according to day in the month.
+
+Normal vs Binomial : Height vs Weight , flipping coins. 
+Updated version: Colors are showing significant values in the binomial distrubition.  
+
+```{r Install packages}
+library(tidyverse) # ggplot2, dplyr, tidyr, readr, 
+                   # purrr, tibble, stringr, forcats
+library(animation)
+library(viridis)
+```
+
+
+```{r Data preparation}
+horror_movies <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-10-22/horror_movies.csv")
+
+dim(horror_movies)
+
+horror_date <-  horror_movies %>% 
+                separate(
+                  release_date, 
+                  c("day", "month", "year"),
+                  sep = "-")
+
+horror_date$day <- as.numeric(horror_date$day)
+
+# Remove rows without Date of the month
+
+horror_date <- horror_date %>% filter(day < 32) 
+
+# I am excluding Day 1 from the analysis (Most aggreements starts at 1st)
+
+horror_date_table <- horror_date %>% filter(day > 1)
+
+# let's check what is the most common day in the month for a horror movie release
+horror_date_table <-  horror_date_table %>%
+  group_by(day) %>% 
+  count() %>% 
+  arrange(desc(n))
+```
+
+Let's visualize the data. 
+
+
+```{r}
+# Final
+horror_date_table$day <- as.character(horror_date_table$day)
+
+my_title <- "When the topic is Horror"
+my_subtitle <- "The 13th gets lucky"
+
+p <- horror_date_table %>% 
+    ungroup() %>% 
+    mutate(day=fct_reorder(day, n, .desc=TRUE)) %>% 
+    ggplot(aes(x=day, y=n)) +
+    geom_col(aes(fill=n)) +
+    scale_fill_viridis( direction =-1) + 
+    theme(
+      plot.title = element_text(size=24, color= "black", hjust=0.5, vjust = -1),
+      plot.subtitle = element_text(size=36, color= "red", hjust=0.5, vjust = -1),
+      panel.background = element_rect(fill = "white"), 
+      plot.background = element_rect(fill = "white"),
+      panel.grid = element_blank(),
+      legend.position = "none", 
+      text = element_text(size=18), 
+      axis.text.x =element_text(vjust=12, size=17, colour= "white", face= "bold"),
+      axis.title.x = element_text(vjust=11), 
+      axis.text.y=element_blank(),
+      axis.ticks= element_blank(), 
+      plot.caption = element_text(hjust = 1, vjust = 10)) +
+    labs(
+          caption= "Source: IMDb, Plot: @dataatomic",
+          x = "Day of the Month", 
+          y = "Number of movies released",
+          title = my_title, 
+          subtitle=my_subtitle) +
+    geom_label(aes(label = n), size=5, fill="yellow", alpha=0.9) 
+p
+
+```
+
+# Discrete Probability distributions: Binomial Distribution
+
+What is a binomial distribution?
+
+the binomial distribution. To recap, the binomial distribution deals with discrete random variables and it gives probabilities for counts with binary data.
+
+
+```{r}
+# Size of our distribution is the total number of movies released 
+n_value <- horror_date_table %>% ungroup() %>% summarize(n2 = sum(n))
+size <- n_value$n2
+# The probability (= success rate = a given outcome to occur = movie released)
+p <-  1/30  # Since it can occur any of the 30 days in a months
+```
+
+ 
+
+```{r}
+# Observed statistics
+# Mean
+horror_date_table %>% ungroup() %>% summarise(n=mean(n))
+# Variance
+horror_date_table %>% ungroup() %>% summarise(n=var(n))
+
+# Simulated statistics
+ 
+est <-  rbinom(100000, size, p)
+mean(est)
+var(est)
+
+# Theoretical statistics
+
+# Expected mean
+mean_theoretical <- size * p
+# Expected Variance = size * p * (1-p)
+var_theoretical <- size * p * (1-p)
+
+
+# Cut off values at p = 0.05
+
+qbinom(0.95, 2782, 1/30, lower.tail=FALSE)
+qbinom(0.95, 2782, 1/30, lower.tail=FALSE)
+
+# Probability of getting at least 124 success
+1 - pbinom(124, 2782, 1/30)
+
+# Confidence Interval (95%)
+
+lower <- qbinom(0.975, 2782, 1/30)
+upper <- qbinom(0.025, 2782, 1/30)
+
+```
+
+
+
+Values outside the range ```r lower``` : ```r upper``` are significant in this binomial distribution. 
+
+
+
+# dbinom is calculates exact probability.
+
+# pbinom calculates interval probability. 
+
+1- pbinom calculates probability of an event as likely or rarer.
+
+2X (1- pbinom) = pvalue
+
+Like 110 days or more release per day.
+
+# qbinom calculates quantile probability.
+
+
+Hypothesis testing and the binomial distribution 
+
+In the last exercise, we did a hypothesis test by calculating the p value by using the pbinom() function. 
+
+**However, a more widely used way to do so is to calculate the mean (the expected probability) of our distribution and its standard deviation and to verify how many standard deviations the observed probability is removed from the expected probability (the z score).**
+
+Because we usually test our hypothesis using a sample, we work with the sampling distribution instead of the population distribution. This means that we use the standard error, rather than the standard deviation. Recall that the formula for the standard error for a binomial distribution was the following:
+
+```{r}
+sample_mean <- horror_date_table %>% ungroup() %>% summarise(n=mean(n))
+sample_mean
+p <- 1/30
+
+sample_variance <-  2782 * p * (1-p)
+sample_variance
+sample_sd <- sqrt(sample_variance)
+
+# Calculate z-score for observation 13th of the month = 124 movies are 
+# released
+observation <- 124
+z_score <- (observation - sample_mean) / sample_sd
+z_score
+
+# Calculate the p-value of observing 124 or more movie releases in a day
+
+pnorm(3.302, lower.tail = FALSE)
+
+
+```
+
+Useful text:
+
+Binomial Experiment
+
+A binomial experiment is a statistical experiment that has the following properties:
+
+The experiment consists of **n repeated trials.**
+
+Each trial can result in just two possible outcomes. 
+
+**Positive outcome is success.**
+
+We call one of these outcomes a success and the other, a failure.
+
+**The probability of success, denoted by P, is the same on every trial.**
+The trials are **independent;** that is, the outcome on one trial does not affect the outcome on other trials.
+Consider the following statistical experiment. You flip a coin 2 times and count the number of times the coin lands on heads. This is a binomial experiment because:
+
+The experiment consists of repeated trials. We flip a coin 2 times.
+Each trial can result in just two possible outcomes - heads or tails.
+The probability of success is constant - 0.5 on every trial.
+The trials are independent; that is, getting heads on one trial does not affect whether we get heads on other trials.
+
+*discrete vs continous**
+
+A binomial distribution is very different from a normal distribution, and yet if the sample size is large enough, the shapes will be quite similar. The key difference is that a binomial distribution is discrete, not continuous. In other words, it is NOT possible to find a data value between any two data values.
+
+Normal Approximation to the Binomial. The normal approximation to the binomial is when you use a continuous distribution (the normal distribution) to approximate a discrete distribution (the binomial distribution).
+
+Can I here use a normal approximation for a binomial distribution?
+How do you use a z score table?
+
+```{r}
+start <- Sys.time()
+big_car_makes <- big_epa_cars %>%
+     count(make) %>% 
+     arrange(desc(n)) %>% 
+     top_n(10)
+    
+end <- Sys.time()
+end-start
+
+start <- Sys.time()
+best_makers_cars <- big_epa_cars %>%
+    group_by(make) %>%
+    summarise(count = n()) %>%
+    arrange(desc(count))   %>%
+    top_n(10) 
+    
+end <- Sys.time()
+end-start
+```
+
+

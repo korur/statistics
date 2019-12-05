@@ -1,0 +1,503 @@
+---
+title: "Statistics_Fundamentals"
+author: "Serdar Korur"
+date: "7/18/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Statistics definitions  
+
+## Descriptive statistics vs Inferential statistics
+
+### Descriptive statistics  
+
+### Inferential statistics  
+
+Making inferences about a population based on information from a sample. 
+The idea behind is understanding the samples from a hypothetical population where the null hypothesis is true.
+
+The logic of inference allows us only to reject null claims. But not certainty on null hypothesis being true(I**important**: To prove the certainty of null hyp you have to make equivalence testing).
+## Differential Statistics
+
+### Null Hypothesis (H~0~)
+
+Null hypothesis is the assumption that there is no difference between the two groups compared. 
+
+**It's important to note that the null hypothesis is never accepted;**
+**we can only reject or fail to reject it.**
+
+### Alternative Hypothesis (H~A~)
+Alternative hypothesis is the assumption that there is a true difference between the two groups compared. 
+
+### Null Distribution  
+
+The `null distribution` is the probability distribution of the test statistic when the null hypothesis is true.
+
+'Null distribution' is short for the sampling distribution of a statistic under the null hypothesis. 'Sampling distribution' you have to understand from the context: in the context you describe it also means the sampling distribution of a statistic under the null hypothesis, but in another context it could refer to the sampling distribution of a statistic under an alternative hypothesis.
+
+
+### Type I Error  
+
+False positive  
+
+e.g If you always claim there is a difference in proportions, you'll always reject the null hypothesis, so you'll only make type I errors, if any.
+
+e.g You got a test for cancer and it claims you have cancer when indeed you dont have( scary)
+### Type II Error  
+
+False negative  
+
+Type I: There is not a difference in proportions, but the observed difference is big enough to indicate that the proportions are different.
+Type II: There is a difference in proportions, but the observed difference is not large enough to indicate that the proportions are different.
+
+e.g Test results show you dont have a cancer when indeed you have. (Good in the beginning but bad if you dont get treated)
+
+## Power of the hypothesis testing
+
+Power = probability of correctly rejecting H-null  
+probability of avoiding type II error
+Power = 1 - prob(Type II error)  
+# Sample vs Populatione.  
+# t.test() function  
+# Conduct a paired t-test using the t.test function  
+t.test(wm_t$post, wm_t$pre, paired = TRUE)   
+t value is (observed - actual) / SE
+# Calculate Cohen's d
+cohensD(wm_t$post, wm_t$pre, method = "paired")
+
+
+### Analysis of Variance
+The test statistic associated with ANOVA is the F-test (or F-ratio). Recall that when carrying out a t-test, you computed an observed t-value, then compared that with a critical value derived from the relevant t-distribution. That t-distribution came from a family of t-distributions, each of which was defined entirely by its degrees of freedom.
+
+ANOVA uses the same principle, but instead an observed F-value is computed and compared to the relevant F-distribution. That F-distribution comes from a family of F-distributions, each of which is defined by two numbers (i.e. degrees of freedom), which we'll refer to as df1 and df2. The F-distribution has a different shape than the t-distribution.
+
+F = Variance between groups / Variance within groups
+he F-test showed a significant effect somewhere among the groups. However, it did not tell you which pairwise comparisons are significant. This is where post-hoc tests come into play. They help you to find out which groups differ significantly from one other and which do not. More formally, post-hoc tests allow for multiple pairwise comparisons without inflating the type I error.  
+Anytime you engage in NHST, a type I error can occur. In a situation were you do multiple pairwise comparisons, the probability of type I errors in the process inflates substantially. Therefore, it is better to build in adjustments to take this into account. This is what Tukey tests and other post-hoc procedures do. They adjust the p-value to prevent inflation of the type I error rate.
+
+## Visualize a t-distribution  
+Use function: dt(data, df = degrees of freedom))
+As an example, qt(0.75, df = 20) computes the 0.75 quantile of a t-distribution with 20 degrees of freedom.  
+
+### What is Statistical model
+It is a kind of Summary of data which encapsulates the patterns.
+e.g Machine learning models
+
+Untangles many influences
+Assessing the strength evidence
+
+It is a representation of a real world scenario to answer a particular question.
+
+A mathematical model based on data.
+
+## p values vs confidence interval
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2689604/
+P-values in scientific studies are used to determine whether a null hypothesis formulated before the performance of the study is to be accepted or rejected. In exploratory studies, p-values enable the recognition of any statistically noteworthy findings. Confidence intervals provide information about a range in which the true value lies with a certain degree of probability, as well as about the direction and strength of the demonstrated effect. This enables conclusions to be drawn about the statistical plausibility and clinical relevance of the study findings. It is often useful for both statistical measures to be reported in scientific articles, because **they provide complementary types of information.**
+
+Why P Values and Confidence Intervals Always Agree About Statistical Significance
+You can use either P values or confidence intervals to determine whether your results are statistically significant. If a hypothesis test produces both, these results will agree.
+
+The confidence level is equivalent to 1 – the alpha level. So, if your significance level is 0.05, the corresponding confidence level is 95%.
+
+If the P value is less than your significance (alpha) level, the hypothesis test is statistically significant.
+
+**If the confidence interval does not contain the null hypothesis value, the results are statistically significant.**
+
+If the P value is less than alpha, the confidence interval will not contain the null hypothesis value.
+
+### Probability
+
+### Sampling Distribution
+Hypothetical distribution of a summary statistic from multiple samples of a given size from a population
+### P-value
+A test statistic is compared to a distribution in order to determine a p value. 
+
+The probability of observing our data or something more extreme if the null hypothesis is true.
+### Permutation
+
+# Type of Probability distributions
+## Normal Distrubition  
+Normal distributions are symmetric around their mean. The mean, median, and mode are equal. The area under the normal curve is equal to 1.0. 
+
+Abraham de Moivre, an 18th century statistician and consultant to gamblers, was often called upon to make these lengthy computations. de Moivre noted that when the number of events (coin flips) increased, the shape of the binomial distribution approached a very smooth curve.
+
+de Moivre reasoned that if he could find a mathematical expression for this curve, he would be able to solve problems such as finding the probability of 60 or more heads out of 100 coin flips much more easily. This is exactly what he did, and the curve he discovered is now called the "normal curve."
+
+The importance of the normal curve stems primarily from the fact that the distributions of many natural phenomena are at least approximately normally distributed.
+
+Laplace showed that even if a distribution is not normally distributed, the means of repeated samples from the distribution would be very nearly normally distributed, and that the larger the sample size, the closer the distribution of means would be to a normal distribution
+
+**AUC under normal distribution is equal to 1**
+
+68% within 1 sd
+95% within 1.96 sd
+99% within 2.92 sd
+
+## Standard Normal Distribution  
+A normal distribution with a mean of 0 and a standard deviation of 1 is called a standard normal distribution.  
+
+## Binomial Distribution
+
+The binomial distribution consists of the probabilities of each of the possible numbers of successes on N trials for independent events that each have a probability of π (the Greek letter pi) of occurring.
+
+**A binomial distribution has only two possible outcomes. You can think of them as successes and failures.**
+http://onlinestatbook.com/2/probability/binomial.html
+## Poisson Distribution
+
+Variance = Mean  
+
+## Geometric Distribution
+
+Random variable Particular event waiting for a particular probability is geometric distribution.  
+E(X) = 1/p - 1
+
+# Great explanation of binomial vs poisson distribution
+
+The Binomial and Poisson distributions are similar, but they are different. Also, the fact that they are both discrete does not mean that they are the same. The Geometric distribution and one form of the Uniform distribution are also discrete, but they are very different from both the Binomial and Poisson distributions.
+
+The difference between the two is that while both measure the number of certain random events (or "successes") within a certain frame, the Binomial is based on discrete events, while the Poisson is based on continuous events. That is, with a binomial distribution you have a certain number, n, of "attempts," each of which has probability of success p. With a Poisson distribution, you essentially have infinite attempts, with infinitesimal chance of success. **That is, given a Binomial distribution with some n,p, if you let n→∞ and p→0 in such a way that np→λ, then that distribution approaches a Poisson distribution with parameter λ.**
+
+Because of this limiting effect, Poisson distributions are used to model occurences of events that could happen a very large number of times, but happen rarely. That is, they are used in situations that would be more properly represented by a Binomial distribution with a very large n and small p, especially when the exact values of n and p are unknown. (Historically, the number of wrongful criminal convictions in a country)
+
+Bernoulli trial is an experiment with two outcomes with fixed probabilities p and 1−p. 
+ 
+ 
+# Infer PACKAGE functions:
+
+specify()
+hypothesize()
+generate()
+calculate()
+diff()
+visualize()
+get_p_value()
+count() to tabulate results
+
+disc_perm %>%
+  visualize(obs_stat = diff_orig, direction = "greater")  
+
+disc_perm %>%
+  get_p_value(obs_stat = diff_orig, direction = "greater")  
+
+disc_perm %>%
+  summarize(p_value = mean(diff_orig <= stat))  
+
+# lsr package
+t.test()
+cohendsD()
+
+
+aov()
+
+Testing the validity of the assumptions:  
+car::leveneTest()
+
+**levene test**
+Use leveneTest() to perform Levene's test for homogeneity of variance. This will check if all groups contain an equivalent amount of variance, which is a necessary precondition for the use of pooled standard deviation in the t-statistic for independent groups. Note that the function uses a formula interface, so pass wm_t$gain to the left of ~ and wm_t$cond to the right.
+
+
+TukeyHSD()
+p.adjust()
+pairwise.t.test()  
+p.adjust(<p-value>, method = <correction method>, 
+         n = <# of hypotheses>)
+
+pairwise.t.test(<dependent variable>, 
+                <independent variable>, 
+                p.adjust = <correction method>)
+                
+                
+# BAYESIAN STATISTICS  
+Probability is the study of how data can be generated from a model.  
+
+**Bayesian inference** is a method for figuring out unknown or unobservable quantities given known facts. In the case of the Enigma machine, Alan Turing wanted to figure out the unknown settings of the wheels and ultimately the meaning of the coded messages.
+
+This model is more appropriate in a situation where we have little background knowledge about the underlying proportion of success.  
+
+A **prior** is a probability distribution that represents what the model knows before seeing the data.
+A **posterior** a probability distribution that represents what the model knows after having seen the data.
+
+### Probability Distributions
+E(A +  B) = E(A)+E(B)
+
+## Parametric methods
+
+Parametric methods (1) assume some knowledge about the characteristics of the parent
+population (e.g. normality) (2) require measurement equivalent to at least an interval scale
+(calculating a mean or a variance makes no sense otherwise). 
+
+## Non parmetric methods
+
+Nonparametric methods (1) do not depend on any assumptions about
+the parameters of the parent population (2) generally assume data are only measured at the
+nominal or ordinal level. 
+
+# Chi-squared
+
+To make objective decisions about the processes that are critical to your organization, **you often need to examine categorical data.** You may know how to use a t-test or ANOVA when you’re comparing measurement data (like weight, length, revenue, and so on), but do you know how to compare attribute or counts data? It easy to do with statistical software like Minitab. 
+
+1. Chi-Squared Goodness of fit test 1 -variable
+2. Chi-Squared for Association 2-variable
+3. Cross tabulation and chi squared
+
+Chi-square **requires no assumptions about the shape of the population distribution** from which a sample is drawn.
+
+The chi square test does not prove that my null hypothesis is correct. 
+
+
+## Chi-Squared questions?
+
+1. Burglaries happening on differet week days?
+2. Have you ever wondered if lottery numbers were evenly distributed or if some numbers occurred with a greater frequency?
+3. Absencees of employees in different weekdays
+# Multinomial vs Categorical
+
+**A multinomial distribution is used when your outcome variable has more than two possible values.**
+
+A population is called multinomial if its data is categorical and belongs to a collection of discrete non-overlapping classes.
+
+The null hypothesis for goodness of fit test for multinomial distribution is that the observed frequency fi is equal to an expected count ei in each category. It is to be rejected if the p-value of the following Chi-squared test statistics is less than a given significance level α.
+
+ 2  ∑   (fi --ei)2
+χ =        ei
+     i
+
+
+sample size of 1 --> sample size with n 
+Bernouilli  --> Binomial -- each trial has two outcomes
+Categorical --> Multinomial -- each trial has more than two outcomes
+
+So, just like Bernoulli distribution gives us the probability for a binary variable at each instance while Binomial returns it for N examples, Categorical distribution gives us the probability for a k-classifying variable at each instance while a Multinomial distribution returns it for N examples.
+
+# Chi squared test
+
+good resource: https://www.youtube.com/watch?v=HwD7ekD5l0g
+
+chisq.test() function.
+the bigger difference between observed and expected values the bigger X2 value. shifting on the right. p value on the upper side of chi distribution thus gets smaller meaning null hypothesis statiting there are no difference between two populations can be rejected. 
+
+# def: Chi-squared test for nominal (categorical) data
+source:https://www.ling.upenn.edu/~clight/chisquared.htm
+chisquared table:http://davidmlane.com/hyperstat/chi_square_table.html
+
+The c2 test is used to determine whether an association (or relationship) between 2 categorical variables in a sample is likely to reflect a real association between these 2 variables in the population.
+
+What is the Chi-square test for? : it is for the whole
+
+The Chi-square test is intended to **test how likely it is that an observed distribution is due to chance.** It is also called a "goodness of fit" statistic, because it measures how well the observed distribution of data fits with the distribution that is expected if the variables are independent.
+
+A Chi-square test is designed to analyze categorical data. That means that the data has been counted and divided into categories. It will not work with parametric or continuous data (such as height in inches)
+
+## What is the Chi-square test NOT for?
+
+First of all, **the Chi-square test is only meant to test the probability of independence of a distribution of data.** 
+
+It will NOT
+**tell you any details about the relationship between them.**
+
+If you want to calculate how much more likely it is that a woman will be a Democrat than a man, the Chi-square test is not going to be very helpful.
+
+# ODDS Ratio for post-chi squared
+https://www.youtube.com/watch?v=8nm0G-1uJzA
+# def: Independence
+Two random variables x and y are called independent if the probability distribution of one variable is not affected by the presence of another.
+
+
+# def: Goodness of fit
+
+Many statistical quantities derived from data samples are found to follow the Chi-squared distribution. Hence we can use it to test whether a population fits a particular theoretical probability distribution.
+
+#def: Likelihood ratio test
+
+# Multinomial proportions Summary
+
+When testing preference data, use the following approach:
+
+Compare the most selected choice using the one-sample binomial against random chance (5 choices = .20, 4 choices = .25, 3 choices = .333 and 2 choices = .5).
+An alternative is the Chi-Square Goodness of Fit test to see whether the distribution deviates from chance. Significant p-values won’t tell you whether the deviation is for the most or least selected choice. Compute a confidence interval to compare the alternatives directly. Keep in mind it’s more conservative because a confidence interval doesn’t take into account the dependencies between choices.
+To compare choices directly and take into account dependence, use the McNemar Exact test.
+
+# def: boferroni correction method
+
+What is the Bonferroni correction method?
+Simply, the Bonferroni correction, also known as the Bonferroni type adjustment, is one of the simplest methods use during multiple comparison testing. Named after its Italian curator, Carlo Emilio Bonferroni, the Bonferroni correction method is used to compensate for Type I error.
+
+p_value / number of tests
+
+
+Below is a list of some alternatives to the Bonferroni correction method.
+
+Sidak method
+Tukey method
+Holm-Bonferroni method
+Hochberg method
+Dunnett method
+
+# Rejecting null hypohteis - multiple hypothesis
+https://multithreaded.stitchfix.com/blog/2015/10/15/multiple-hypothesis-testing/
+
+# Daat transformations: When to do it, hiow and why
+
+http://www.biostathandbook.com/transformation.html
+
+# Power = 1 - Type II
+
+Power of a binary hypothesis test is the **probability that the test rejects the null hypothesis (H0) when a specific alternative hypothesis (H1) is true.** The statistical power ranges from 0 to 1, and as statistical power increases, the probability of making a type II error (wrongly failing to reject the null hypothesis) decreases. For a type II error probability of β, the corresponding statistical power is 1 − β. 
+
+# Bonferroni Procedure is too restrictive for many hypothesis
+Use false discovery rate (**FDR**)
+
+The Benjamini-Hochberg Procedure is a powerful tool that decreases the false discovery rate.
+
+# False discoverty rate
+
+https://www.statisticshowto.datasciencecentral.com/false-discovery-rate/
+
+The false discovery rate (FDR) is the expected proportion of type I errors. A type I error is where you incorrectly reject the null hypothesis; In other words, you get a false positive.
+
+Closely related to the FDR is the family-wise error rate (FWER). The FWER is the probability of making at least one false conclusion (i.e. at least one Type I Error). In other words, it is the probability of making any Type I error at all. The Bonferroni correction controls the FWER, guarding against making one or more false positives. However, using this correction may be too strict for some fields and may lead to missed findings (Mailman School of Public Health, n.d.). **The FDR approach is used as an alternative to the Bonferroni correction and controls for a low proportion of false positives, instead of guarding against making any false positive conclusion at all. The result is usually increased statistical power and fewer type I errors.**
+
+## FDR - How to Run the Benjamini–Hochberg procedure
+
+Put the individual p-values in ascending order.
+Assign ranks to the p-values. For example, the smallest has a rank of 1, the second smallest has a rank of 2.
+Calculate each individual p-value’s Benjamini-Hochberg critical value, using the formula (i/m)Q, where:
+i = the individual p-value’s rank,
+m = total number of tests,
+Q = the false discovery rate (a percentage, chosen by you).
+Compare your original p-values to the critical B-H from Step 3; **find the largest p value that is smaller than the critical value.**
+
+The false discovery rate (FDR) is the expected proportion of type I errors. A type I error is where you incorrectly reject the null hypothesis; In other words, you get a false positive.
+
+
+This post is based on material of terrific **course Stats 300C by Prof. Candes at Stanford.**
+Closely related to the FDR is the family-wise error rate (FWER). The FWER is the probability of making at least one false conclusion (i.e. at least one Type I Error). In other words, it is the probability of making any Type I error at all.
+
+
+
+# Guideline 1: A joint test of a composite hypothesis ought to be used if an inference or conclusion requires multiple hypotheses to be simultaneously true.
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1713204/
+
+# PDFs 
+
+Probability density functions
+
+# Probability mass functions
+
+In probability and statistics, **a probability mass function (PMF) is a function that gives the probability that a discrete random variable is exactly equal to some value.** The probability mass function is often the primary means of defining a discrete probability distribution, and such functions exist for either scalar or multivariate random variables whose domain is discrete.
+
+A probability mass function differs from a **probability density function (PDF) in that the latter is associated with continuous rather than discrete random variables;** the values of the probability density function are not probabilities as such: a PDF must be integrated over an interval to yield a probability.
+
+The value of the random variable having the largest probability mass is called the mode.
+
+# Confidence intervals for proportions:
+
+
+# Example: 
+
+Suppose that in a three-way election for a large country, candidate A received 20% of the votes, candidate B received 30% of the votes, and candidate C received 50% of the votes. If six voters are selected randomly, what is the probability that there will be exactly one supporter for candidate A, two supporters for candidate B and three supporters for candidate C in the sample?
+
+Note: Since we’re assuming that the voting population is large, it is reasonable and permissible to think of the probabilities as unchanging once a voter is selected for the sample. Technically speaking this is sampling without replacement, so the correct distribution is the multivariate hypergeometric distribution, but the distributions converge as the population grows large.
+
+
+
+# What is Monte Carlo simulation?
+
+The Monte Carlo method tells you:
+
+All of the possible events that could or will happen,
+The probability of each possible outcome.
+
+Another way of figuring out the probability of getting a Blackjack is to choose two cards a set number of times (say, one hundred times) and record the outcomes. The more times you take a sample of two cards, the closer you’ll get to the “real” figure of 1:21. 
+
+Monte Carlo (MC) methods are a subset of computational algorithms that use the process of repeated random sampling to make numerical estimations of unknown parameters. 
+# Stochastic model
+https://www.statisticshowto.datasciencecentral.com/stochastic-model/
+
+What is a Stochastic Model?
+A stochastic model represents a situation where uncertainty is present. In other words, it’s a model for a process that has some kind of randomness. The word stochastic comes from the Greek word stokhazesthai meaning to aim or guess. In the real word, uncertainty is a part of everyday life, so a stochastic model could literally represent anything. The opposite is a deterministic model, which predicts outcomes with 100% certainty. Deterministic models always have a set of equations that describe the system inputs and outputs exactly. On the other hand, stochastic models will likely produce different results every time the model is run.
+
+All stochastic models have the following in common:
+
+They reflect all aspects of the problem being studied,
+Probabilities are assigned to events within the model,
+Those probabilities can can be used to make predictions or supply other relevant information about the process.
+“Stochastic” means random, so a “stochastic process” could more simple be called a random process.
+
+
+# Welch's method
+
+It does not assume or require that two samples have equal variances. Performs well even samples are not equal sized.
+
+Linear discriminant analysis
+From Wikipedia, the free encyclopedia
+Jump to navigationJump to search
+Not to be confused with latent Dirichlet allocation.
+Linear discriminant analysis (LDA), normal discriminant analysis (NDA), or discriminant function analysis is a generalization of Fisher's linear discriminant, a method used in statistics, pattern recognition, and machine learning to find a linear combination of features that characterizes or separates two or more classes of objects or events. The resulting combination may be used as a linear classifier, or, more commonly, for dimensionality reduction before later classification.
+
+LDA is closely related to analysis of variance (ANOVA) and regression analysis, which also attempt to express one dependent variable as a linear combination of other features or measurements.[1][2] However, ANOVA uses categorical independent variables and a continuous dependent variable, whereas discriminant analysis has continuous independent variables and a categorical dependent variable (i.e. the class label).[3] Logistic regression and probit regression are more similar to LDA than ANOVA is, as they also explain a categorical variable by the values of continuous independent variables. These other methods are preferable in applications where it is not reasonable to assume that the independent variables are normally distributed, which is a fundamental assumption of the LDA method.
+
+LDA is also closely related to principal component analysis (PCA) and factor analysis in that they both look for linear combinations of variables which best explain the data.[4] LDA explicitly attempts to model the difference between the classes of data. PCA, in contrast, does not take into account any difference in class, and factor analysis builds the feature combinations based on differences rather than similarities. Discriminant analysis is also different from factor analysis in that it is not an interdependence technique: a distinction between independent variables and dependent variables (also called criterion variables) must be made.
+
+LDA works when the measurements made on independent variables for each observation are continuous quantities. When dealing with categorical independent variables, the equivalent technique is discriminant correspondence analysis.[5][6]
+
+Discriminant analysis is used when groups are known a priori (unlike in cluster analysis). Each case must have a score on one or more quantitative predictor measures, and a score on a group measure.[7] In simple terms, discriminant function analysis is classification - the act of distributing things into groups, classes or categories of the same type.
+
+# Logistic and linear regression - Assumptions
+
+
+**Assumptions of linear and logistic Regression**
+
+https://www.lexjansen.com/wuss/2018/130_Final_Paper_PDF.pdf
+
+
+# Probability Distribution Function:
+
+A probability distribution function is some function that may be used to define a particular probability distribution. Depending upon which text is consulted, the term may refer to:
+
+a cumulative distribution function
+
+a probability mass function
+
+gives the probability that a discrete random variable is exactly equal to some value. All the values of this function must be non-negative and sum up to 1.
+
+a probability density function.
+
+In a more precise sense, the PDF is used to specify the probability of the random variable falling within a particular range of values, as opposed to taking on any one value. 
+
+# Covariance
+
+In probability theory and statistics, covariance is a measure of the joint variability of two random variables.[1] If the greater values of one variable mainly correspond with the greater values of the other variable, and the same holds for the lesser values, (i.e., the variables tend to show similar behavior), the covariance is positive.[2] In the opposite case, when the greater values of one variable mainly correspond to the lesser values of the other, (i.e., the variables tend to show opposite behavior), the covariance is negative. The sign of the covariance therefore shows the tendency in the linear relationship between the variables. The magnitude of the covariance is not easy to interpret because it is not normalized and hence depends on the magnitudes of the variables. The normalized version of the covariance, the correlation coefficient, however, shows by its magnitude the strength of the linear relation.
+
+A distinction must be made between (1) the covariance of two random variables, which is a population parameter that can be seen as a property of the joint probability distribution, and (2) the sample covariance, which in addition to serving as a descriptor of the sample, also serves as an estimated value of the population parameter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sources: 
+
+https://ncss-wpengine.netdna-ssl.com/wp-content/themes/ncss/pdf/Procedures/PASS/Confidence_Intervals_for_the_Difference_Between_Two_Proportions.pdf
+
+
+**Assumptions of linear and logitsic Regression**
+
+https://www.lexjansen.com/wuss/2018/130_Final_Paper_PDF.pdf
+
+
+**about p values - what are the common mistakes**
+https://blog.minitab.com/blog/understanding-statistics/three-common-p-value-mistakes-youll-never-have-to-make

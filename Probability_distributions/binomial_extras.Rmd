@@ -1,0 +1,76 @@
+---
+title: "binomial_extras"
+author: "Serdar Korur"
+date: "10/31/2019"
+output: html_document
+---
+
+```{r}
+horror <- horror_date_table %>% ggplot(aes(x=n)) + geom_histogram()
+horror_date_table %>% ggplot(aes(x=n)) + geom_density()
+horror <- horror_date_table %>% mutate(percent = 100*n/2782)
+
+p <- rbinom(100000, 2782,1/30)
+p <- data.frame(p)
+p %>% ggplot(aes(x=p)) + geom_density()
+
+
+# Create pdfs
+
+# Theoretical
+
+pd <- density(p$p)
+pd
+mode <- pd$x[which.max((pd$y))]
+mode
+ggplot(p, aes(x=p)) + geom_rug() + geom_density() + geom_vline(xintercept = mode, col = "red")
+
+fun_args <- list(mean = mean(p$p), sd = sd(p$p))
+
+
+ggplot(p, aes(x = p)) +
+  geom_histogram(aes(y = ..density..)) +
+  geom_density(col = "red") +
+  stat_function(fun = dnorm, args = fun_args, col = "blue")
+
+# Empirical
+
+
+
+hpdf <- density(horror_date_table$n)
+mode_h <- hpdf$x[which.max(hpdf$y)]
+ggplot(horror_date_table, aes(x=n)) + geom_rug() + geom_density() + geom_vline(xintercept = mode_h, col = "red") 
+
+fun_args <- list(mean=mean(horror_date_table$n, sd= sd(horror_date_table$n)))
+
+ggplot(horror_date_table, aes(x = n)) +
+  geom_histogram(aes(y = ..density..)) +
+  geom_density(col = "red") +
+  stat_function(fun = dnorm, args = fun_args, col = "blue")
+                 
+```
+
+```{r}
+# QQplot sometimes can be misquiding
+# Shapiro wilk test will show if normality is indeed the case
+Shapiro.test()
+```
+
+**The performance of a machine learning algorithm on a binary classification problem can be analyzed as a Bernoulli process, where the prediction by the model on an example from a test set is a Bernoulli trial (correct or incorrect).**
+
+The Binomial distribution summarizes the number of successes k in a given number of Bernoulli trials n, with a given probability of success for each trial p.
+
+We can demonstrate this with a Bernoulli process where the probability of success is 30% or P(x=1) = 0.3 and the total number of trials is 100 (k=100).
+
+# This is also good.
+
+# example of using the pmf for the binomial distribution
+from scipy.stats import binom
+# define the parameters of the distribution
+p = 0.3
+k = 100
+# define the distribution
+dist = binom(k, p)
+# calculate the probability of n successes
+for n in range(10, 110, 10):
+	print('P of %d success: %.3f%%' % (n, dist.pmf(n)*100))

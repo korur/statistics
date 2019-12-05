@@ -1,0 +1,168 @@
+---
+title: "tutorial_probability_distributions"
+author: "Serdar Korur"
+date: "11/9/2019"
+output: html_document
+---
+
+
+# Bernouilli Experiment
+
+Bernouilli trial is a single event with two possible outcomes, usually defined as "Success" or "Failure". Flipping a coin one times. 
+
+# Bernoilli plot / Binomial plot / Categorical / Multinomial plot
+
+
+Bernouilli - Binomial - Categorical - Multinomial
+
+Binomial: 2 possibilities  --> Flipping coins (Head of Tails), Probability for a disease ( Healthy vs Unhealthy)
+
+Categorical distribution: Rolling a die 1 time. Eye color of an individual from a population.
+
+if you repeat categorical distribution event n times you will get multinomial distibution.
+
+Multinomial: Rolling a die n times ( 6 possibilities), Eye color types (Black, blue, green etc) in a population
+
+# **Test binomial approximation of multinomial using different n / p **
+
+# https://stats.stackexchange.com/questions/207671/normal-approximation-to-the-binomial-distribution-why-np5
+```{r}
+heads <- rbinom(100000, 2872, 1/100)
+heads <- data.frame(heads)
+heads %>%  ggplot(aes(x=heads)) + 
+    geom_histogram(binwidth = 0.5) + 
+    scale_fill_manual(values = c("black", "red")) +
+    theme_classic() +
+    theme(text = element_text(size = 18),
+          legend.position = c(0.85, 0.85)) +
+    labs(x = "Number of heads in 50 coin flips")
+
+```
+
+# Can multinomial distribution be simulated by a sequence of binomial draws?
+
+**The conditional method for simulating multinomial data**
+%%%%%%%%%%%%%%% If N is large or you plan to generate a large number of observations, there is a more efficient way to simulate multinomial data in the SAS DATA step. It is called the "conditional method" and it uses the fact that you can think of a multinomial draw as being a series of binomial draws (Gentle, 2003, pp. 198-199). %%%%%%%%%%%%%%%%%%%%%%%
+
+
+# Binomial vs Multinomial distributions
+
+**Binomial distributions** are formed when we repeat a set of events and each single event in a set has two possible outcomes. Bi- in binomial distributions refers to those outcomes. Two possibilities are usually described as **Success** or **no Success**. A "yes" or "no".  
+
+not mine:
+A binomial distribution can be thought of as simply the probability of a SUCCESS or FAILURE outcome in an experiment or survey that is repeated multiple times. The binomial is a type of distribution that has two possible outcomes (the prefix “bi” means two, or twice). For example, a coin toss has only two possible outcomes: heads or tails and taking a test could have two possible outcomes: pass or fail.
+
+# A Binomial distribution: 100.000 sets of 50 coin flipping with p = 0.5
+```{r}
+
+heads <- rbinom(100000, 50, 0.5)
+heads <- data.frame(heads)
+heads <- heads %>% mutate(events = ifelse(heads > 35, "> 35", "< 35"))
+heads %>%  ggplot(aes(x=heads, fill = events)) + 
+  geom_histogram(binwidth = 0.5) + 
+  scale_fill_manual(values = c("black", "red")) +
+  theme_classic() +
+  theme(text = element_text(size = 18),
+        legend.position = c(0.85, 0.85)) +
+  labs(x = "Number of heads in 50 coin flips")
+```
+
+# Create Binomial distributions with different parameters and compare to multinomial distributions 100.000 sets of 50 coin flipping with p = 0.5
+
+# Compare binomial with p = 1/30 and multinomial with p = 1/30.
+# Compare small n / p sizes.
+# When I can approximate binomial with multinomial
+
+# Chi-squared test
+https://www.cedu.niu.edu/~walker/statistics/Chi%20Square%202.pdf
+
+for nominal data
+http://learntech.uwe.ac.uk/da/Default.aspx?pageid=1440
+
+What is not for?
+
+https://www.ling.upenn.edu/~clight/chisquared.htm
+
+
+
+
+
+2
+I have a 2×3 table cross-tabulation. I've done a post-hoc test using SPSS but I don't know how to interpret the results. This is the output:
+
+enter image description here
+
+spss chi-squared post-hoc
+shareciteedit
+edited Jan 11 '16 at 21:28
+
+Antoni Parellada
+16.3k1111 gold badges6767 silver badges152152 bronze badges
+asked Jan 11 '16 at 19:42
+
+Reem M.Al Haj
+6211 silver badge88 bronze badges
+add a comment
+1 Answer
+activeoldestvotes
+
+3
+
+Although the idea is there on the table in the OP, the best thing to do is to actually obtain the standardized residuals (as opposed to the residuals). This should be a straightforward choice in your software package. The formula for the standardized residuals is:
+
+Pearson's residuals=Observed−ExpectedExpected−−−−−−−−√
+.
+
+In this way you can establish a risk alpha of 0.05, corresponding to a cutoff limit for statistical significance of 1.96.
+
+What you have in the output table right now is just the residuals: (observed - expected).
+
+Recapping:
+
+Cell counts:
+
+        Variable
+Gender    1  2  3 Sum
+  Male    9 21 34  64
+  Female 27 26 17  70
+  Sum    36 47 51 134
+Expected counts:
+
+        Variable
+Gender    1  2  3 Sum
+  Male   17 22 24  63
+  Female 19 25 27  71
+  Sum    36 47 51 134
+Each cell in the OP contains the difference (without rounding).
+
+Now compare to the standardized residuals:
+
+        Variable
+Gender      1    2    3
+  Male   -2.0 -0.3  2.0
+  Female  1.9  0.3 -1.9
+They have the same sign as your initial values and have parallel relative magnitudes, but allow an immediate interpretation in the way that those with absolute value greater than 1.96 can be considered statistically significant. In your case it seems as though column "1" and "3" may be responsible for a positive omnibus chi square test.
+
+You can visually see this with a mosaic plot:
+
+enter image description here
+
+The standardized residuals are color-coded in blue for positive departure from expected values, and in red for negative deviation. In addition, the surface area covered by each cell is proportional to the cell count.
+
+Code in R:
+
+table <- matrix(c(1,21,34,35,26,17), nrow = 2, byrow = T)
+dimnames(table) = list(Gender=c("Male","Female"), Variable=c("1","2","3"))
+table; addmargins(table)
+expect <- round(chisq.test(table)$expected)
+addmargins(expect)
+round(chisq.test(table)$residuals, 1)
+library(vcd)
+mosaic(table, shade=T, gp = shading_max)
+
+## ECDF for Chi-squared test
+
+# Likelihood Ratio Test
+
+# Using p.adjust in R
+https://www.coursera.org/lecture/designexperiments/08-more-one-sample-tests-of-proportions-qQXog
