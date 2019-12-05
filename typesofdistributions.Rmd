@@ -1,0 +1,155 @@
+---
+title: "Probability Distributions in R"
+author: "Serdar Korur"
+date: "12/3/2019"
+output: html_document
+---
+
+Univariate probability distributions:
+
+1. Normal distribution
+2. Binomial distribution
+3. Multinomial distribution
+3. Poissson distribution
+4. Expontential distribution
+5. Geometric distribution
+6. Gamma distribution
+
+
+Multivariate probability distributions:
+
+
+# Multivariate distribution
+
+Multivariate distributions is used  to describe probability distributions of more than one variable at the same time allowing us to see the relation between them. 
+
+### When we need them?
+
+In hypothesis testing, clustering, and likelihood calculation, you need
+to calculate the density of a specified multivariate normal distribution
+
+Student courses, does physics correlates with math results or art with english.
+
+### Mean vector
+
+Since there are more than one variable mean is not a single value but a vector with the length of number of variables
+
+### variance-covariance matrix
+
+**Variance** is the average of the squared differences from the Mean and
+we use variance to describe the spread the a univariate distribution and variance-covariance matrix to describe the spread of multivariate data. 
+
+**relation**
+sd to variance
+correlation to covariance
+
+### Why we need a Variance-Covariance matrix
+
+**Variance and covariance matrix** is used to store the spread parameters of a multivariate data. 
+Variances of individual random variables appear at the diagonal and covariances appear in the off-diagonal elements. 
+
+Covariance represents the product of the differences of two variables from their mean. It measures how two variables of a data move together. 
+
+when we standardise the covariance of two variables by dividing with the product of their individual standard deviations we get the correlation value.
+
+>>Formula..
+
+
+var() is used to calculate variance co variance matrix.
+cor() is used to calculate correlation matrix
+corrplot()
+### What is the difference between univariate data vs multivariate data?
+
+Univariate distributions a
+Univariate normal vs multivariate normal
+
+### R functions for multivariate data
+
+library(mvtnorm)
+rmvnorm(n, mean , sigma)
+
+rnorm rmvnorm rt rmvt
+qnorm
+dnorm
+pnorm
+## Definitions
+
+### Variance-Covariance matrix
+###  Correlation matrix
+
+## Plotting multivariate variables
+pairs()
+splom()
+ggpairs()
+scatterplot3d()
+
+$$\sum_{i=1}^n X_i$$
+$$E[X{i}-\hat X][Y-\hat Y] $$
+
+$$Var(X) =\sum_{}(X{i}-\hat X)^2/N$$
+# Code for plotting bivariate densities
+```{r}
+# Create grid
+d <- expand.grid(seq(-3, 6, length.out = 50 ), seq(-3,  6, length.out = 50))                   
+
+# Calculate density on grid
+dens1 <- dmvnorm(as.matrix(d), mean=c(1,2), sigma=matrix(c(1, .5, .5, 2), 2))
+
+# Convert to matrix 
+dens1 <-  matrix(dens1, nrow = 50 )
+
+# Use perspective plot
+persp(dens1, theta = 80, phi = 30, expand = 0.6, shade = 0.2, 
+        col = "lightblue", xlab = "x", ylab = "y", zlab = "dens")
+```
+
+
+#### What is Kurtosis?
+
+Kurtosis is a statistical measure that defines how heavily the tails of a distribution differ from the tails of a normal distribution. In other words, kurtosis identifies whether the tails of a given distribution contain extreme values.
+
+# Cumulative Distribution
+
+
+# Multivariate Statistical techniques (that assume multivariate normality)
+
+* multivariate regressiin
+* discriminant analysis
+* model-based clustering
+* principal component analysis (PCA)
+* multivariate analysis of variance (MANOVA)
+
+**qqnorm** is widely used to test univariate normality. ( Created by plotting theoretical quantiles to the sample quantiles)
+
+Calculate univariate normality of each variable in the data
+### Multuvariate normality tests
+
+# newer version does not work.
+install.packages("devtools")
+library(devtools)
+install_version('MVN', '4.0.2')
+
+### qqnorm of all variables
+
+uniPlot(diabetes[,1:9])
+
+#### Check multivariate normality
+
+mardiaTest(diabetes[, 1:8])
+
+#### Multivariate normal distribtuions use cases in machine learning
+
+https://brilliant.org/wiki/multivariate-normal-distribution/
+
+e.g Anomaly detection???
+_________________________________________________________________________
+=========================================================================
+_________________________________________________________________________
+# Sources:
+
+Variance-co variance matrix
+
+# https://stattrek.com/matrix-algebra/covariance-matrix.aspx
+
+R Markdown for formulas
+https://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html
