@@ -187,7 +187,7 @@ scatterplot3d(cbind(d, dens), type = "h", zlab = "density")
 Both normal and t distributions are designed to model symetric distr.b
 but real data is often skewed.
 
-# Functions for skwe normal distribution
+# Functions for skewed normal distribution
 
 SN library
 dmsn
@@ -197,6 +197,74 @@ need to specify(xi, omega, alpha)
 xi is the location parameter, mean
 omega is the scale parameter, variance, covariance
 alpha= is the skweness parameter
+
+# functions for skewed-t-distribution
+
+dmst
+pmst
+rmst
+Need to specify xi, Omega, alpha, nu (degrees of freedom)
+
+## plot skewed-t-dist
+
+# Specify xi, Omega and alpha
+# Specify xi, Omega and alpha
+xi1 <- c(1, 2, -5) 
+Omega1 <- matrix(c(1, 1, 0,
+                   1, 2, 0,
+                   0, 0, 5), 3, 3)
+alpha1 <- c(4, 30, -5)
+
+# Generate samples
+skew.sample <- rmsn(n = 2000, xi = xi1, Omega = Omega1, alpha = alpha1)
+
+Estimation of parameters from data
+Need iterative algorithm to estimate the parameters of a skew-normal distribution
+
+No explicit equation to calculate parameters
+Several functions in sn package, including msn.mle() function
+
+## PCA: Why we need principal component analysis
+
+Large number of strongly correlated variables, this poses
+
+Computational challenges
+and results are hard to interpret
+
+to avoid this ds often choose to work with relevant but uncorrelated variables. 
+weighted sums of existing variables.
+
+princomp() calculates, principal components in the data. 
+
+# Calculate PCs
+pca.state <- princomp(state.x77, cor =TRUE, scores = TRUE) 
+
+# Plot the PCA object  
+plot(pca.state) 
+
+# Print the summary of the PCs
+summary(pca.state) 
+
+## Find the Principal compoments needed to explain a certain level of variation in the data
+Cumulative proportion
+
+# Variance explained
+pc.var <- cars.pca$sdev^2
+
+# Proportion of variation
+pc.pvar <- pc.var / sum(pc.var)
+
+# Cumulative proportion
+plot(cumsum(pc.pvar), type = 'b')
+
+# Draw screeplot
+screeplot(pca.state, type = "l")
+grid()
+
+# Quickly visualize first 2 principal components with bi plot
+
+Calculating, visualizing and intrepreting scores
+biplot(cars.pca, col = c("steelblue", "white"), cex = c(0.8, 0.01))
 _________________________________________________________________________
 =========================================================================
 _________________________________________________________________________
