@@ -14,7 +14,7 @@ Univariate probability distributions:
 4. Expontential distribution
 5. Geometric distribution
 6. Gamma distribution
-
+3
 
 Multivariate probability distributions:
 
@@ -141,7 +141,62 @@ mardiaTest(diabetes[, 1:8])
 
 https://brilliant.org/wiki/multivariate-normal-distribution/
 
-e.g Anomaly detection???
+### e.g Anomaly detection???
+
+### Other types of multivariate distributions
+
+Not all multivatiate processess follow multivariate normal
+
+multivariate-t distribtuion
+skewed-normal-multivariate
+skewed-t-multivariate
+
+mean: is the location parameter
+variane: is the scale parameter
+
+normal vs t compared
+
+Distribution	Probability
+Normal	0.05
+t(df=1)	0.3
+t(df=8)	0.0857
+t(df=20)	0.0641
+t(df=30)	0.0593
+
+R Functions for multivariate t distributions (delta,sigma)
+rmvt
+qmvt
+dmvt
+pmvt
+
+## In the stock market, individual stocks are modeled my univariate t distribution
+due to the volatility of prices
+if you want to model 3 stocks, you need a multivatiate t distribution
+
+## Calculating the density of a multivariate distribution on a grid
+```{r}
+x <- seq(-3, 6, by = 1); y <- seq(-3, 6, by = 1)
+d <- expand.grid(x = x, y = x)                   
+del1 <- c(1, 2); sig1 <- matrix(c(1, .5, .5, 2), 2)
+dens <- dmvt(as.matrix(d), delta = del1, sigma = sig1, df = 10, log = FALSE)
+scatterplot3d(cbind(d, dens), type = "h", zlab = "density")
+```
+
+### Skewed multivatiate
+
+Both normal and t distributions are designed to model symetric distr.b
+but real data is often skewed.
+
+# Functions for skwe normal distribution
+
+SN library
+dmsn
+pmsn
+rmsn
+need to specify(xi, omega, alpha)
+xi is the location parameter, mean
+omega is the scale parameter, variance, covariance
+alpha= is the skweness parameter
 _________________________________________________________________________
 =========================================================================
 _________________________________________________________________________
