@@ -265,6 +265,42 @@ grid()
 
 Calculating, visualizing and intrepreting scores
 biplot(cars.pca, col = c("steelblue", "white"), cex = c(0.8, 0.01))
+
+Plotting the PC scores in two dimensions is one way to visualize high dimensional data.
+
+# Using factoextra library for visualizing PCA components
+
+
+The factoextra library provides a number of functions which make it easy to extract and visualize the output of many exploratory multivariate data analyses, including PCA. In this exercise, you will use several functions to visualize the scores and PC loadings of the state.x77 dataset.
+
+_Use the output of princomp() function_
+
+# Plot the scores
+fviz_pca_ind(pca.state)
+
+# Plot the PC loadings
+fviz_pca_var(pca.state)
+
+# Create a biplot
+fviz_pca_biplot(pca.state)
+
+
+## Multi-dimensional scaling
+
+Another way of dimension reduction. to provide visual representation
+
+cmdscale(distance matrix, k=max dimension, ...)
+
+## Multidimensional scaling in more than two dimensions
+cars.dist <- dist(mtcars)
+cmds3 <- data.frame(cmdscale(cars.dist, k = 3))
+scatterplot3d(cmds3, type = "h", pch = 19, lty.hplot = 2, color = mtcars$cyl)
+
+## Parameter estimation for multivariate skew-normals
+
+Unlike multivariate normal, where the parameters estimates can be obtained using the sample mean and sample variance-covariance matrix, the parameters of the skew-normal distribution need to be estimated by an iterative process. You can make use of existing functions in the sn packages to get the estimates.
+
+
 _________________________________________________________________________
 =========================================================================
 _________________________________________________________________________
