@@ -5,6 +5,92 @@ date: "12/3/2019"
 output: html_document
 ---
 
+Probability distributions describe what we think the probability of each outcome is, which is sometimes more interesting to know than simply which single outcome is most likely. 
+
+We've used pre-existing knowledge about RNA-seq data to design a statistical model of the process and draw inference to estimate unknown parameters in the model from the data.
+
+# Extras 
+
+Extras:
+The sum of all the probabilities must be equal to one. And the nature of the variable determines the shape of the probability distribution.
+Terminology:
+A statistical model is a family of distributions. Model is a statistical hypothesis.What does model parameters mean?
+
+What is the difference between Statistical inference and probability?
+
+Statistical inference --> You have some observed data   ---> Build a model
+
+Probability --> is the study of what kind of data can be generated from a model?
+
+In probability theory we consider some underlying process which has some randomness or uncertainty modeled by random variables, **and we figure out what happens.**
+
+
+I like the example of a jar of red and green jelly beans.
+
+**A probabilist starts by knowing the proportion of each and asks the probability of drawing a red jelly bean.**  A statistician infers the proportion of red jelly beans by sampling from the jar.
+
+Probability and Statistical inference are two related areas of mathematics whose concern is the relative frequency of events. 
+
+Probability deals with predicting future events from a given model, whereas statistical inference analyses the frequency of past events. 
+
+Probabiliy is theoretical wheras statistics is applied, in order to make sense of real world. 
+
+--ed Both subjects are important and useful. 
+
+--ed probability theory allows us to find the consequences in the ideal world, and statistics allows us to find out how ideal the world is. 
+
+--ed You can express uncertainty about any variable by using a probability distribution. You can select a distribution based on available data, on the judgment of a knowledgeable expert, or on a combination of data and judgment.
+
+
+--ed Statistical inference deduces the properties of an underlying probability distribution.
+
+Statistical inference makes propositions about the population or about the world. 
+
+In probability we know how the world look like and we use this knowledge to estimate future events. 
+
+They are complementary approaches.
+
+---ed A probability distribution gives all the information about how a random quantity fluctuates. In practice we usually do not have the full probability distribution of our quantity of interest. We may know or assume something about it without knowing or assuming that we know everything about it. For example, we might assume that some quantity is normally distributed but know nothing about the mean and variance. Then we have a collection of candidates for the distribution to choose from; in our example, it is all possible normal distributions. **This collection of distributions forms a statistical model.** We use it by gathering data and then restricting our class of candidates so that all the remaining candidates are consistent with the data in some appropriate sense.
+
+--ed **Firstly, we must understand that statistics and statistical models are not the same. Statistics is the mathematical study of data. You cannot do statistics unless you have data. A statistical model is a model for the data that is used either to infer something about the relationships within the data or to create a model that is able to predict future values. Often, these two go hand-in-hand.**
+
+--ed **e.g linear model the point of our model is to characterize the relationship between the data and our outcome variable**
+
+--ed **Two major goals in the study of biological systems are inference and prediction. Inference creates a mathematical model of the data-generation process to formalize understanding or test a hypothesis about how the system behaves. Prediction aims at forecasting unobserved outcomes or future behavior, such as whether a mouse with a given gene expression pattern has a disease. Prediction makes it possible to identify best courses of action (e.g., treatment choice) without requiring understanding of the underlying mechanisms. In a typical research project, both inference and prediction can be of value—we want to know how biological processes work and what will happen next. For example, we might want to infer which biological processes are associated with the dysregulation of a gene in a disease, as well as detect whether a subject has the disease and predict the best therapy.**
+
+https://www.nature.com/articles/nmeth.4642?source=post_page-----64b49f07ea3----------------------
+
+# In the light of the above, Probability uses probability distributions to find the consequences of the events in the ideal world. Whereas statistics tries to fit observations to a given probability distribution. 
+
+
+uses probability distributions to compare 
+
+the frequency of the past events
+
+
+
+
+
+# Why do we need probability distributions in the first place?
+
+Different pobability distributions account for different nature of the underlying data. For example anova vs students-t test, uses F and t distrbution respoectively. 
+
+--ed In statistics, you have to determine if the pattern you identify in the data is significantly different from no pattern at all. There are a bunch of ways to do this, but the most common is the use of probability functions. Probability functions permit you to determine the chance that your model is different. Among the several probability functions, the F-distribution rises to the top a lot. So let’s take a glance at the F-distribution. What is the F-distribution
+A probability distribution, like the normal distribution, is means of determining the probability of a set of events occurring. This is true for the F-distribution as well.
+
+The F-distribution is a skewed distribution of probabilities similar to a chi-squared distribution. But where the chi-squared distribution deals with the degree of freedom with one set of variables, **the F-distribution deals with multiple levels of events having different degrees of freedom.** This means that there are several versions of the F-distribution for differing levels of degrees of freedom.
+
+https://magoosh.com/statistics/f-distribution-explained/
+
+--> We have some data from a sample. To model the data. 
+
+We want to know our population parameters?
+We want to know whether two samples come from same populations?
+We want to calculate p value for an event?
+We want to generate data
+We want to calculate probability for an observation?
+You can use probability densities to identify which data the certain is coming from? (Iris, species types)
+
 Univariate probability distributions:
 
 1. Normal distribution
@@ -12,16 +98,23 @@ Univariate probability distributions:
 3. Multinomial distribution
 3. Poissson distribution
 4. Expontential distribution
+The exponential distribution should come to mind when thinking of “time until event”, maybe “time until failure.”
 5. Geometric distribution
 6. Gamma distribution
-3
+
+
+
+--ed If the binomial distribution is “How many successes?” then the geometric distribution is “How many failures until a success?”
+The negative binomial distribution is a simple generalization. It’s the number of failures until r successes have occurred, not just 1.
 
 Multivariate probability distributions:
 
 
 # Multivariate distribution
 
-Multivariate distributions is used  to describe probability distributions of more than one variable at the same time allowing us to see the relation between them. 
+Multivariate distributions is used to describe probability distributions of more than one variable at the same time allowing us to see the relation between them. 
+
+ed-- In modern time, the multivariate normal distribution is incredibly important in machine learning, whose purpose is (very roughly speaking) to categorize input data xx into labels yy, based on some training pairs x,yx,y. **One major approach involves analyzing the distribution p(x|y)p(x∣y), and approximating it with a multivariate normal distribution, the validity of which can be checked using various normality tests; paradoxically, however, classifying based on multivariate normal distributions has been successful in practice even when it is known to be a poor model for the data.**
 
 ### When we need them?
 
@@ -113,7 +206,7 @@ Kurtosis is a statistical measure that defines how heavily the tails of a distri
 
 # Multivariate Statistical techniques (that assume multivariate normality)
 
-* multivariate regressiin
+* multivariate regression
 * discriminant analysis
 * model-based clustering
 * principal component analysis (PCA)
@@ -237,7 +330,7 @@ weighted sums of existing variables.
 princomp() calculates, principal components in the data. 
 
 # Calculate PCs
-pca.state <- princomp(state.x77, cor =TRUE, scores = TRUE) 
+pca.state <- princomp(state.x77, cor = TRUE, scores = TRUE) 
 
 # Plot the PCA object  
 plot(pca.state) 
@@ -312,3 +405,6 @@ Variance-co variance matrix
 
 R Markdown for formulas
 https://www.statpower.net/Content/310/R%20Stuff/SampleMarkdown.html
+
+
+https://www.stat.ncsu.edu/people/davidian/courses/st732/notes/chap3.pdf

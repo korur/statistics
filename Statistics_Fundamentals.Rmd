@@ -70,7 +70,57 @@ t value is (observed - actual) / SE
 cohensD(wm_t$post, wm_t$pre, method = "paired")
 
 
+### One sample t-test
+
+A one sample t-test allows us to test whether a sample mean (of a normally distributed interval variable) significantly differs from a hypothesized value.  For example, using the hsb2 data file, say we wish to test whether the average writing score (write) differs significantly from 50.  We can do this as shown below.
+
+### One sample median test (Wilcoxon)
+
+A one sample median test allows us to test whether a sample median differs significantly from a hypothesized value.  We will use the same variable, write, as we did in the one sample t-test example above, but we do not need to assume that it is interval and normally distributed (we only need to assume that write is an ordinal variable).
+
+### Binomial test
+
+A one sample binomial test allows us to test whether the proportion of successes on a two-level categorical dependent variable significantly differs from a hypothesized value.  For example, using the hsb2 data file, say we wish to test whether the proportion of females (female) differs significantly from 50%, i.e., from .5.  We can do this as shown below.
+
+### Chi-square goodness of fit
+
+A chi-square goodness of fit test allows us to test whether the observed proportions for a categorical variable differ from hypothesized proportions.
+### Two independent samples t-test
+
+An independent samples t-test is used when you want to compare the means of a normally distributed interval dependent variable for two independent groups.  For example, using the hsb2 data file, say we wish to test whether the mean for write is the same for males and female
+
+### Wilcoxon-Mann-Whitney test
+
+The Wilcoxon-Mann-Whitney test is a non-parametric analog to the independent samples t-test and can be used when you do not assume that the dependent variable is a normally distributed interval variable (you only assume that the variable is at least ordinal). 
+
+
+### Chi-square test
+
+A chi-square test is used when you want to see if there is a relationship between two categorical variables.  In SPSS, the chisq option is used on the statistics subcommand of the crosstabs command to obtain the test statistic and its associated p-value.  Using the hsb2 data file, let’s see if there is a relationship between the type of school attended (schtyp) and students’ gender (female).  Remember that the chi-square test assumes that the expected value for each cell is five or higher.
+
+### Fisher’s exact test
+
+The Fisher’s exact test is used when you want to conduct a chi-square test but one or more of your cells has an expected frequency of five or less.  Remember that the chi-square test assumes that each cell has an expected frequency of five or more, but the Fisher’s exact test has no such assumption and can be used regardless of how small the expected frequency is.
+
+
+### One-way ANOVA
+
+A one-way analysis of variance (ANOVA) is used when you have a categorical independent variable (with two or more categories) and a normally distributed interval dependent variable and you wish to test for differences in the means of the dependent variable broken down by the levels of the independent variable.
+
+### Kruskal-wallis test
+
+The Kruskal Wallis test is used when you have one independent variable with two or more levels and an ordinal dependent variable. In other words, it is the non-parametric version of ANOVA and a generalized form of the Mann-Whitney test method since it permits two or more groups. 
+
+### Paired t-test
+A paired (samples) t-test is used when you have two related observations (i.e., two observations per subject) and you want to see if the means on these two normally distributed interval variables differ from one another. 
+### Wilcoxon signed rank sum test  
+
+The Wilcoxon signed rank sum test is the non-parametric version of a paired samples t-test.  You use the Wilcoxon signed rank sum test when you do not wish to assume that the difference between the two variables is interval and normally distributed (but you do assume the difference is ordinal).
+
 ### Analysis of Variance
+
+A one-way analysis of variance (ANOVA) is used when you have a categorical independent variable (with two or more categories) and a normally distributed interval dependent variable and you wish to test for differences in the means of the dependent variable broken down by the levels of the independent variable.
+
 The test statistic associated with ANOVA is the F-test (or F-ratio). Recall that when carrying out a t-test, you computed an observed t-value, then compared that with a critical value derived from the relevant t-distribution. That t-distribution came from a family of t-distributions, each of which was defined entirely by its degrees of freedom.
 
 ANOVA uses the same principle, but instead an observed F-value is computed and compared to the relevant F-distribution. That F-distribution comes from a family of F-distributions, each of which is defined by two numbers (i.e. degrees of freedom), which we'll refer to as df1 and df2. The F-distribution has a different shape than the t-distribution.
@@ -79,7 +129,92 @@ F = Variance between groups / Variance within groups
 he F-test showed a significant effect somewhere among the groups. However, it did not tell you which pairwise comparisons are significant. This is where post-hoc tests come into play. They help you to find out which groups differ significantly from one other and which do not. More formally, post-hoc tests allow for multiple pairwise comparisons without inflating the type I error.  
 Anytime you engage in NHST, a type I error can occur. In a situation were you do multiple pairwise comparisons, the probability of type I errors in the process inflates substantially. Therefore, it is better to build in adjustments to take this into account. This is what Tukey tests and other post-hoc procedures do. They adjust the p-value to prevent inflation of the type I error rate.
 
+### McNemar test
+
+You would perform McNemar’s test if you were interested in the marginal frequencies of two binary outcomes. These binary outcomes may be the same outcome variable on matched pairs (like a case-control study) or two outcome variables from a single group.  Continuing with the hsb2 dataset used in several above examples, let us create two binary outcomes in our dataset: himath and hiread. These outcomes can be considered in a two-way contingency table.  The null hypothesis is that the proportion of students in the himath group is the same as the proportion of students in hiread group (i.e., that the contingency table is symmetric).
+
+## One-way repeated measures ANOVA
+
+You would perform a one-way repeated measures analysis of variance if you had one categorical independent variable and a normally distributed interval dependent variable that was repeated at least twice for each subject.  This is the equivalent of the paired samples t-test, but allows for two or more levels of the categorical variable. This tests whether the mean of the dependent variable differs by the categorical variable.
+
+### Repeated measures logistic regression
+
+If you have a binary outcome measured repeatedly for each subject and you wish to run a logistic regression that accounts for the effect of multiple measures from single subjects, you can perform a repeated measures logistic regression.  
+
+### Factorial ANOVA
+
+A factorial ANOVA has two or more categorical independent variables (either with or without the interactions) and a single normally distributed interval dependent variable.  
+
+### Friedman test
+
+You perform a Friedman test when you have one within-subjects independent variable with two or more levels and a dependent variable that is not interval and normally distributed (but at least ordinal).
+
+### Ordered logistic regression
+
+Ordered logistic regression is used when the dependent variable is ordered, but not continuous.  For example, using the hsb2 data file we will create an ordered variable called write3.  This variable will have the values 1, 2 and 3, indicating a low, medium or high writing score. 
+
+### Factorial logistic regression
+
+A factorial logistic regression is used when you have two or more categorical independent variables but a dichotomous dependent variable.  For example, using the hsb2 data file we will use female as our dependent variable, because it is the only dichotomous variable in our data set; certainly not because it common practice to use gender as an outcome variable. 
+
+### Correlation
+
+A correlation is useful when you want to see the relationship between two (or more) normally distributed interval variables. 
+
+### Simple linear regression
+
+Simple linear regression allows us to look at the linear relationship between one normally distributed interval predictor and one normally distributed interval outcome variable.
+
+### Non-parametric correlation
+
+A Spearman correlation is used when one or both of the variables are not assumed to be normally distributed and interval (but are assumed to be ordinal). The values of the variables are converted in ranks and then correlated.  In our example, we will look for a relationship between read and write.  We will not assume that both of these variables are normal and interval.
+
+### Simple logistic regression
+
+Logistic regression assumes that the outcome variable is binary (i.e., coded as 0 and 1).  We have only one variable in the hsb2 data file that is coded 0 and 1, and that is female.  We understand that female is a silly outcome variable (it would make more sense to use it as a predictor variable), but we can use female as the outcome variable to illustrate how the code for this command is structured and how to interpret the output.  The first variable listed after the logistic command is the outcome (or dependent) variable, and all of the rest of the variables are predictor (or independent) variables.  In our example, female will be the outcome variable, and read will be the predictor variable.  As with OLS regression, the predictor variables must be either dichotomous or continuous; they cannot be categorical.
+
+### Multiple regression
+
+Multiple regression is very similar to simple regression, except that in multiple regression you have more than one predictor variable in the equation.  For example, using the hsb2 data file we will predict writing score from gender (female), reading, math, science and social studies (socst) scores
+
+### Analysis of covariance
+
+Analysis of covariance is like ANOVA, except in addition to the categorical predictors you also have continuous predictors as well.  For example, the one way ANOVA example used write as the dependent variable and prog as the independent variable.  Let’s add read as a continuous variable to this model, as shown below.
+
+### Discriminant analysis
+
+https://towardsdatascience.com/linear-discriminant-analysis-in-python-76b8b17817c2
+
+Discriminant analysis is used when you have one or more normally distributed interval independent variables and a categorical dependent variable.  It is a multivariate technique that considers the latent dimensions in the independent variables for predicting group membership in the categorical dependent variable.  For example, using the hsb2 data file, say we wish to use read, write and math scores to predict the type of program a student belongs to (prog).
+
+
+
+### One-way MANOVA
+
+MANOVA (multivariate analysis of variance) is like ANOVA, except that there are two or more dependent variables. In a one-way MANOVA, there is one categorical independent variable and two or more dependent variables. For example, using the hsb2 data file, say we wish to examine the differences in read, write and math broken down by program type (prog).
+
+Hotelling's T test is a multivariate expansion of the t-test and multivariate analysis of variance (MANOVA) is a multivariate expansion of analysis of variance. In many cases, we have multiple measures of artifact shape or composition and running t-tests separately on each variable creates multiple comparisons problems. Also the tests are not really independent if the variables are correlated with one another as they often are. Hotelling's T and MANOVA provide an overall test of the difference between the groups based on all of the numeric variables. The tests of significance are on these linear combinations rather than the original separate variables.
+
+### Multivariate multiple regression
+
+Multivariate multiple regression is used when you have two or more dependent variables that are to be predicted from two or more independent variables.  In our example using the hsb2 data file, we will predict write and read from female, math, science and social studies (socst) scores.
+
+### Canonical correlation 
+
+Canonical correlation is a multivariate technique used to examine the relationship between two groups of variables.  For each set of variables, it creates latent variables and looks at the relationships among the latent variables. It assumes that all variables in the model are interval and normally distributed.  SPSS requires that each of the two groups of variables be separated by the keyword with.  There need not be an equal number of variables in the two groups (before and after the with).
+
+Descriptive discriminant analysis is based on multivariate analysis of variance. Instead of a single numeric dependent (response) variable, we have several variables. To test for differences between groups, we compute linear combinations of the original variables and then test for significant differences between the linear combinations. A linear combination is like a multiple regression equation in the sense that each variable is multiplied by a value and summed to produce a new value that summarizes variability in the original variables. Descriptive discriminant analysis is also described as canonical discriminant analysis and the linear components are referred to as canonical variates. The method is used to visualize the similarities and differences between groups in two or three dimensions.
+
+### Factor analysis  
+
+Factor analysis is a form of exploratory multivariate analysis that is used to either reduce the number of variables in a model or to detect relationships among variables.  All variables involved in the factor analysis need to be interval and are assumed to be normally distributed.  The goal of the analysis is to try to identify factors which underlie the variables.  There may be fewer factors than variables, but there may not be more factors than variables.  For our example using the hsb2 data file, let’s suppose that we think that there are some common factors underlying the various test scores.  We will include subcommands for varimax rotation and a plot of the eigenvalues.  We will use a principal components extraction and will retain two factors. (Using these options will make our results compatible with those from SAS and Stata and are not necessarily the options that you will want to use.)
+
+---------------------------------------------------------------
+
+
+
 ## Visualize a t-distribution  
+
 Use function: dt(data, df = degrees of freedom))
 As an example, qt(0.75, df = 20) computes the 0.75 quantile of a t-distribution with 20 degrees of freedom.  
 
@@ -93,6 +228,15 @@ Assessing the strength evidence
 It is a representation of a real world scenario to answer a particular question.
 
 A mathematical model based on data.
+
+# Non parametric tests: Wilcoxon signed rank test
+
+wilcox.test(x, mu = 0, alternative = "two.sided")
+
+x: a numeric vector containing your data values
+mu: the theoretical mean/median value. Default is 0 but you can change it.
+alternative: the alternative hypothesis. Allowed value is one of “two.sided” (default), “greater” or “less”.
+
 
 ## p values vs confidence interval
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2689604/
@@ -434,19 +578,33 @@ Those probabilities can can be used to make predictions or supply other relevant
 
 It does not assume or require that two samples have equal variances. Performs well even samples are not equal sized.
 
-Linear discriminant analysis
+# Linear discriminant analysis (https://www.statisticssolutions.com/discriminant-analysis/)
+
 From Wikipedia, the free encyclopedia
-Jump to navigationJump to search
-Not to be confused with latent Dirichlet allocation.
-Linear discriminant analysis (LDA), normal discriminant analysis (NDA), or discriminant function analysis is a generalization of Fisher's linear discriminant, a method used in statistics, pattern recognition, and machine learning to find a linear combination of features that characterizes or separates two or more classes of objects or events. The resulting combination may be used as a linear classifier, or, more commonly, for dimensionality reduction before later classification.
 
-LDA is closely related to analysis of variance (ANOVA) and regression analysis, which also attempt to express one dependent variable as a linear combination of other features or measurements.[1][2] However, ANOVA uses categorical independent variables and a continuous dependent variable, whereas discriminant analysis has continuous independent variables and a categorical dependent variable (i.e. the class label).[3] Logistic regression and probit regression are more similar to LDA than ANOVA is, as they also explain a categorical variable by the values of continuous independent variables. These other methods are preferable in applications where it is not reasonable to assume that the independent variables are normally distributed, which is a fundamental assumption of the LDA method.
+Linear discriminant analysis (LDA), normal discriminant analysis (NDA), or discriminant function analysis is a generalization of **Fisher's linear discriminant,** a method **used in statistics, pattern recognition, and machine learning** to find a linear combination of features that characterizes or separates two or more classes of objects or events. 
 
-LDA is also closely related to principal component analysis (PCA) and factor analysis in that they both look for linear combinations of variables which best explain the data.[4] LDA explicitly attempts to model the difference between the classes of data. PCA, in contrast, does not take into account any difference in class, and factor analysis builds the feature combinations based on differences rather than similarities. Discriminant analysis is also different from factor analysis in that it is not an interdependence technique: a distinction between independent variables and dependent variables (also called criterion variables) must be made.
+**The resulting combination may be used as a linear classifier, or, more commonly, for dimensionality reduction before later classification.**
 
-LDA works when the measurements made on independent variables for each observation are continuous quantities. When dealing with categorical independent variables, the equivalent technique is discriminant correspondence analysis.[5][6]
+LDA is closely related to analysis of variance (ANOVA) and regression analysis, which also attempt to express one dependent variable as a linear combination of other features or measurements.[1][2] 
 
-Discriminant analysis is used when groups are known a priori (unlike in cluster analysis). Each case must have a score on one or more quantitative predictor measures, and a score on a group measure.[7] In simple terms, discriminant function analysis is classification - the act of distributing things into groups, classes or categories of the same type.
+However, **ANOVA uses categorical independent variables and a continuous normally distributed dependent variable,** whereas discriminant analysis has continuous independent variables and a categorical dependent variable (i.e. the class label).[3] 
+
+**Logistic regression and probit regression** are more similar to LDA than ANOVA is, as they also explain a categorical variable by the values of continuous independent variables. 
+
+These other methods are preferable in applications where it is not reasonable to assume that **the independent variables are normally distributed, which is a fundamental assumption of the LDA method.**
+
+LDA is also closely related to principal component analysis (PCA) and factor analysis in that they both look for linear combinations of variables which best explain the data.[4] 
+
+* **LDA explicitly attempts to model the difference between the classes of data.**
+* **PCA, in contrast, does not take into account any difference in class.**
+* **Factor analysis builds the feature combinations based on differences rather than similarities.**
+
+Discriminant analysis is also different from factor analysis in that it is not an interdependence technique: a distinction between independent variables and dependent variables (also called criterion variables) must be made.
+
+**LDA works when the measurements made on independent variables for each observation are continuous quantities. When dealing with categorical independent variables, the equivalent technique is discriminant correspondence analysis.[5][6]**
+
+**Discriminant analysis is used when groups are known a priori (unlike in cluster analysis). ** Each case must have a score on one or more quantitative predictor measures, and a score on a group measure.[7] In simple terms, discriminant function analysis is classification - the act of distributing things into groups, classes or categories of the same type.
 
 # Logistic and linear regression - Assumptions
 
@@ -478,7 +636,11 @@ A distinction must be made between (1) the covariance of two random variables, w
 
 
 
+# What are bins, binwidth ?
 
+**How do you construct a histogram from a continuous variable?**
+
+To construct a histogram from a continuous variable you first need to split the data into intervals, called bins. In the example above, age has been split into bins, with each bin representing a 10-year period starting at 20 years. Each bin contains the number of occurrences of scores in the data set that are contained within that bin. 
 
 
 
@@ -501,3 +663,9 @@ https://www.lexjansen.com/wuss/2018/130_Final_Paper_PDF.pdf
 
 **about p values - what are the common mistakes**
 https://blog.minitab.com/blog/understanding-statistics/three-common-p-value-mistakes-youll-never-have-to-make
+
+**Which test to use**
+https://stats.idre.ucla.edu/spss/whatstat/what-statistical-analysis-should-i-usestatistical-analyses-using-spss/
+
+**Mc Nemar test**
+https://www.theanalysisfactor.com/difference-between-chi-square-test-and-mcnemar-test/
