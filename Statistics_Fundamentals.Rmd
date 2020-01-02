@@ -69,6 +69,15 @@ t value is (observed - actual) / SE
 # Calculate Cohen's d
 cohensD(wm_t$post, wm_t$pre, method = "paired")
 
+# What statistical analysis should I use?
+
+```{r}
+library(openintro)
+data(hsb2)
+dim(hsb2)
+
+```
+
 
 ### One sample t-test
 
@@ -84,7 +93,8 @@ A one sample binomial test allows us to test whether the proportion of successes
 
 ### Chi-square goodness of fit
 
-A chi-square goodness of fit test allows us to test whether the observed proportions for a categorical variable differ from hypothesized proportions.
+**A chi-square goodness of fit test allows us to test whether the observed proportions for a categorical variable differ from hypothesized proportions.**
+
 ### Two independent samples t-test
 
 An independent samples t-test is used when you want to compare the means of a normally distributed interval dependent variable for two independent groups.  For example, using the hsb2 data file, say we wish to test whether the mean for write is the same for males and female
@@ -96,7 +106,7 @@ The Wilcoxon-Mann-Whitney test is a non-parametric analog to the independent sam
 
 ### Chi-square test
 
-A chi-square test is used when you want to see if there is a relationship between two categorical variables.  In SPSS, the chisq option is used on the statistics subcommand of the crosstabs command to obtain the test statistic and its associated p-value.  Using the hsb2 data file, let’s see if there is a relationship between the type of school attended (schtyp) and students’ gender (female).  Remember that the chi-square test assumes that the expected value for each cell is five or higher.
+**A chi-square test is used when you want to see if there is a relationship between two categorical variables.**  In SPSS, the chisq option is used on the statistics subcommand of the crosstabs command to obtain the test statistic and its associated p-value.  Using the hsb2 data file, let’s see if there is a relationship between the type of school attended (schtyp) and students’ gender (female).  Remember that the chi-square test assumes that the expected value for each cell is five or higher.
 
 ### Fisher’s exact test
 
@@ -105,14 +115,15 @@ The Fisher’s exact test is used when you want to conduct a chi-square test but
 
 ### One-way ANOVA
 
-A one-way analysis of variance (ANOVA) is used when you have a categorical independent variable (with two or more categories) and a normally distributed interval dependent variable and you wish to test for differences in the means of the dependent variable broken down by the levels of the independent variable.
+**A one-way analysis of variance (ANOVA) is used when you have a categorical independent variable (with two or more categories) and a normally distributed interval dependent variable and you wish to test for differences in the means of the dependent variable broken down by the levels of the independent variable.**
 
 ### Kruskal-wallis test
 
-The Kruskal Wallis test is used when you have one independent variable with two or more levels and an ordinal dependent variable. In other words, it is the non-parametric version of ANOVA and a generalized form of the Mann-Whitney test method since it permits two or more groups. 
+The Kruskal Wallis test is used when you have **one independent variable with two or more levels and an ordinal dependent variable.** In other words, it is the **non-parametric version of ANOVA** and a generalized form of the Mann-Whitney test method since it permits two or more groups. 
 
 ### Paired t-test
 A paired (samples) t-test is used when you have two related observations (i.e., two observations per subject) and you want to see if the means on these two normally distributed interval variables differ from one another. 
+
 ### Wilcoxon signed rank sum test  
 
 The Wilcoxon signed rank sum test is the non-parametric version of a paired samples t-test.  You use the Wilcoxon signed rank sum test when you do not wish to assume that the difference between the two variables is interval and normally distributed (but you do assume the difference is ordinal).
