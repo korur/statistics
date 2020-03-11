@@ -5,7 +5,18 @@ date: "11/28/2019"
 output: html_document
 ---
 
-If you are a beginner or someone who wants to refresh his/her memory on simple sattistical concepts this article is for you.
+# Accuracy vs Precision=repeatability
+
+Scientists often measure and predict things. Therefore, we need ways to describe how much we know, how close a number is to reality, and how likely we are to get the same number again. The terms accuracy and precision are generally used to describe these things, but there can be some ambiguity. This post explains the difference between the two and explores the different aspects of precision’s multiple meanings.
+
+accuracy v precision
+These targets illustrate different combinations of accuracy and precision. Accuracy describes the proximity to the desired answer (the bull’s eye). Precision describes the points’ proximity to each other. Less scatter is higher precision.
+Accuracy refers to the correctness of a measurement or prediction. The results can vary a lot, but what matters is the difference between the measurements or predictions to what is considered to be the real or accepted value. Precision is often contrasted with accuracy by emphasizing the repeatability meaning of the word. This is most applicable to measurements, but can be applied to modelling too (e.g., stochastic models). When measuring something, we want some confidence that if we were to measure the same thing again, we would get a similar answer. In this situation, precision describes the degree of this similarity.
+
+In order to avoid ambiguity, using alternative terms for precision may be a wise choice. When describing the ability to get similar results from multiple measurements, using the term ‘repeatability’ would be clearer in meaning. Precision, in terms of describing the quantitative or spatial detail of something, isn’t as easily replaced by a term such as ‘exactness’ because even that can conjure ideas of accuracy. As semantics evolve, maybe the meaning of precision will evolve to something more limited. In the meantime, when possible, we can use ‘detail’ and ‘resolution’ for spatial applications and ‘significant digits’ for quantitative applications.
+
+
+If you are a beginner or someone who wants to refresh his/her memory on simple statistical concepts this article is for you.
 
 
 # Median

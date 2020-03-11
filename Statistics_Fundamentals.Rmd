@@ -188,7 +188,7 @@ Logistic regression assumes that the outcome variable is binary (i.e., coded as 
 
 Multiple regression is very similar to simple regression, except that in multiple regression you have more than one predictor variable in the equation.  For example, using the hsb2 data file we will predict writing score from gender (female), reading, math, science and social studies (socst) scores
 
-### Analysis of covariance
+### Analysis of covariance (Ancova)
 
 Analysis of covariance is like ANOVA, except in addition to the categorical predictors you also have continuous predictors as well.  For example, the one way ANOVA example used write as the dependent variable and prog as the independent variable.  Let’s add read as a continuous variable to this model, as shown below.
 

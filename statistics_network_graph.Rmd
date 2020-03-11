@@ -1,0 +1,109 @@
+---
+title: "statistics_network_graph"
+author: "Serdar Korur"
+date: "3/10/2020"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(igraph)
+veri <- read_excel("C:/Users/serda/Documents/workingdirectory/statistics_repo/choosingastatisticaltest.xlsx", sheet=4)
+verix <- as.matrix(veri)
+
+# Create a igraph object
+g <- graph.edgelist(verix, directed = FALSE)
+
+# Subset vertices = intersection points = nodes, and edges = connections
+V(g)
+E(g)
+
+# Count number of edges
+gsize(g)
+
+# Count number of vertices
+gorder(g)
+
+# Summary of the object
+g
+
+# Add an vertex attribute
+g <- set_vertex_attr(g, "importance", value = c(5, 1,1,1,1,1 ,1,1,1))
+vertex_attr(g)
+# Add an edge attribute
+g <- set_edge_attr(g, "edge_imp", value = rep(1,10))
+edge_attr(g)
+
+# Change color
+V(g)$color <- ifelse(V(g)$importance > 1, "red", "blue")
+
+# Plot igraph object
+plot(g)
+plot(g,  vertex.label.color = "black", layout = layout_in_circle(g))
+plot(g,  vertex.label.color = "black", layout = layout_with_fr(g))
+plot(g,  vertex.label.color = "black", layout = layout_as_tree(g))
+plot(g,  vertex.label.color = "black", layout = layout_nicely(g))
+```
+
+
+# Create an igraph object directly from the dataframes
+
+```{r}
+g_edges <- read_excel("C:/Users/serda/Documents/workingdirectory/statistics_repo/choosingastatisticaltest.xlsx", sheet=5)
+g_vertices <- read_excel("C:/Users/serda/Documents/workingdirectory/statistics_repo/choosingastatisticaltest.xlsx", sheet=6)
+g1 <- graph_from_data_frame(d= g_edges, vertices = g_vertices, directed = FALSE)
+V(g1)$color <- ifelse(V(g1)$importance > 1, "red", "blue")
+g1
+plot(g1, vertex.label.color = "black")
+
+# Delete vertices
+g2 <- delete_vertices(g1, V(g1)[order > 2])
+plot(g2)
+
+# check if an edge exists
+g1['data', 'categorical']
+g1['data', 'ratio']
+incident(g1, 'data', mode=c('all'))
+# find stating of all egdes
+head_of(g1, E(g1))
+
+# is the graph directed?
+is.directed(g)
+
+# Is the graph weighted?
+is.weighted(g)
+
+# neighbors of a node
+a <- neighbors(g1, "data")
+b <- neighbors(g1, "ratio")
+
+# intersection
+intersection(a,b)
+
+# diameter of a network
+farthest_vertices(g1)
+get_diameter(g1)
+diameter(g1)
+
+# Straightforward measure of vertex importance is the degree of a vertex.
+# Calculate the degree of each vertex
+g.outd <- degree(g1, mode = c("all"))
+
+# Calculated the degree of betweenness >> measure of a vertex importance - determined by how often that vertex lies on the shortest path between any two vertices in a network
+betweenness(g1)
+
+# Get a vector of geodesic distances of all vertices from vertex data
+g18 <- make_ego_graph(g1, diameter(g1), nodes = 'data', mode = c("all"))[[1]]
+distances(g18, "data")
+
+# Eigenvector centrality >> how well connected a vertex is
+eigen_centrality(g1)$vector
+
+# OVeral structure
+edge_density(g1)
+
+# Average pathlength
+mean_distance(g1)
+```
+
